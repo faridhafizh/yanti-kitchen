@@ -11,10 +11,11 @@ Yanti's Kitchen is a modern web application built to showcase delicious and auth
 ## Features
 
 - **Bilingual Support**: Toggle between English and Indonesian languages seamlessly.
-- **Admin CMS**: A custom admin dashboard (`/admin`) for managing recipes (create, edit, delete).
-- **Authentication**: Secured admin area using simple cookie-based authentication via Next.js proxy/middleware.
-- **Data Storage**: Simplified JSON file storage (`data/recipes.json`) accessed via Next.js API Routes (`/api/recipes`).
-- **Responsive Design**: Mobile-first design utilizing Tailwind CSS.
+- **Dark Mode**: Support for light and dark themes using `next-themes`.
+- **Admin CMS**: A custom admin dashboard (`/admin`) for managing recipes (create, edit, delete) with a professional UI.
+- **Authentication**: Secured admin area using JWT authentication via Next.js proxy. Registration includes an Editor role. Login uses an OTP sent via email (mocked with ethereal).
+- **Data Storage**: Simplified JSON file storage (`data/recipes.json` and `data/users.json`) accessed via Next.js API Routes.
+- **Responsive Design**: Mobile-first design utilizing Tailwind CSS, including a mobile hamburger menu.
 - **Animations**: Fluid transitions and interactions powered by Framer Motion.
 
 ## Tech Stack
@@ -27,8 +28,9 @@ This project was built using the following technologies:
 - **Animations:** [Framer Motion](https://www.framer.com/motion/)
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Internationalization (i18n):** Custom React Context provider for handling EN/ID languages
-- **Backend/API:** Next.js Route Handlers with local JSON file data storage (`/api/recipes`)
-- **Security:** Next.js Middleware/Proxy for secure cookie-based auth route protection
+- **Authentication:** `jsonwebtoken`, `bcryptjs`, and `nodemailer` for OTP delivery.
+- **Backend/API:** Next.js Route Handlers with local JSON file data storage.
+- **Security:** Next.js Proxy for secure cookie-based auth route protection.
 
 ## Getting Started
 
