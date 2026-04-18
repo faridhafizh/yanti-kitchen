@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-utensils">
-  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-  <path d="M7 2v20"/>
-  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Y Shape -->
+  <path d="M30 20 L50 45 L70 20" />
+  <path d="M50 45 V80" />
+
+  <!-- W Shape integrated around Y -->
+  <path d="M20 30 L35 70 L50 50 L65 70 L80 30" />
+
+  <!-- Fork Tines branching from W left -->
+  <path d="M20 30 V15" />
+  <path d="M27.5 35 V20" />
+  <path d="M35 40 V25" />
+
+  <!-- Knife Blade replacing W right side partially -->
+  <path d="M65 70 C75 50, 80 40, 80 30 C80 20, 75 15, 75 15 C70 20, 65 30, 65 70 Z" fill="currentColor" stroke="none" />
 </svg>

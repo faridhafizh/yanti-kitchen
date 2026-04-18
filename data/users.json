@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "email": "admin@yanti.com",
+    "password": "$2a$10$D2B9jVv4R/pQ08j9i4VfR.A.tBv3rFzC/YlW/xQ8Pj5T7q5d9tL/W",
+    "role": "Admin"
+  }
+]

@@ -1,26 +1,68 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import fs from 'fs/promises';
+import path from 'path';
+import bcrypt from 'bcryptjs';
+import nodemailer from 'nodemailer';
+
+const dataFilePath = path.join(process.cwd(), 'data/users.json');
+
+// Simple in-memory store for OTPs (in production use Redis or DB)
+export const otpStore = new Map<string, { otp: string, expires: number }>();
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    // Hardcoded credentials for demo purposes
-    if (email === 'admin@yanti.com' && password === 'admin123') {
-      const cookieStore = await cookies();
-      cookieStore.set('auth-token', 'authenticated', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-      });
+    const fileContents = await fs.readFile(dataFilePath, 'utf8');
+    const users = JSON.parse(fileContents);
 
-      return NextResponse.json({ success: true });
+    const user = users.find((u: { email: string; [key: string]: unknown }) => u.email === email);
+
+    if (!user) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-  } catch {
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Store OTP, valid for 5 minutes
+    otpStore.set(email, {
+      otp,
+      expires: Date.now() + 5 * 60 * 1000
+    });
+
+    // Send email with nodemailer via ethereal
+    const testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: '"Yantis Kitchen" <no-reply@yanti.com>',
+      to: email,
+      subject: "Your OTP Code",
+      text: `Your OTP code is ${otp}. It expires in 5 minutes.`,
+      html: `<b>Your OTP code is ${otp}.</b> It expires in 5 minutes.`,
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    return NextResponse.json({ success: true, message: 'OTP sent to email', previewUrl: nodemailer.getTestMessageUrl(info) });
+  } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
