@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black font-sans text-zinc-950 dark:text-zinc-50">
+      <body className="min-h-full flex flex-col bg-gradient-to-br from-stone-50 via-white to-stone-100 dark:from-stone-950 dark:via-stone-900 dark:to-black font-sans text-stone-950 dark:text-stone-50">
         <I18nProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

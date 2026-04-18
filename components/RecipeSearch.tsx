@@ -29,7 +29,7 @@ export function RecipeSearch() {
   });
 
   return (
-    <div className="flex flex-col w-full min-h-[calc(100vh-4rem)] bg-zinc-50 dark:bg-black">
+    <div className="flex flex-col w-full min-h-[calc(100vh-4rem)] bg-stone-50 dark:bg-black">
       <motion.div
         layout
         className={`flex flex-col w-full ${hasSearched ? "pt-12 px-4 sm:px-6 lg:px-8" : "flex-1 items-center justify-center px-4"}`}
@@ -51,11 +51,11 @@ export function RecipeSearch() {
                 }
               }}
               placeholder={t("search.placeholder")}
-              className="w-full h-14 pl-6 pr-14 text-lg rounded-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 transition-shadow"
+              className="w-full h-14 pl-6 pr-14 text-lg rounded-full border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-900 dark:focus:ring-stone-100 transition-shadow"
             />
             <button
               type="submit"
-              className="absolute right-2 p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 transition-colors"
+              className="absolute right-2 p-3 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 transition-colors"
             >
               <Search className="w-5 h-5" />
             </button>
@@ -76,7 +76,7 @@ export function RecipeSearch() {
               <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredRecipes.map((recipe) => (
                   <Card key={recipe.id} className="flex flex-col overflow-hidden">
-                    <div className="aspect-[16/9] w-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-5xl">
+                    <div className="aspect-[16/9] w-full bg-stone-100 dark:bg-stone-900 flex items-center justify-center text-5xl">
                       {recipe.emoji}
                     </div>
                     <CardHeader>
@@ -96,7 +96,7 @@ export function RecipeSearch() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 text-zinc-500 dark:text-zinc-400 text-lg">
+              <div className="text-center py-20 text-stone-500 dark:text-stone-400 text-lg">
                 {t("search.no_results")}
               </div>
             )}

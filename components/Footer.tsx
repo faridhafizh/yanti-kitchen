@@ -7,13 +7,13 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-zinc-200 bg-white py-8 dark:border-zinc-800 dark:bg-black">
+    <footer className="w-full border-t border-stone-200/50 bg-white/70 backdrop-blur-lg py-8 dark:border-stone-800/50 dark:bg-black/70">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
+          <div className="text-lg font-bold text-stone-900 dark:text-stone-50">
             Yanti&apos;s Kitchen
           </div>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-stone-500 dark:text-stone-400">
             © {year} Yanti&apos;s Kitchen. {t("footer.rights")}
           </p>
         </div>
