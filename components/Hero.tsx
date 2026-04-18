@@ -20,7 +20,7 @@ export function Hero() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <Button asChild size="lg">
-                <Link href="#recipes">
+                <Link href="/recipes">
                   {t("hero.cta")}
                 </Link>
               </Button>

@@ -22,6 +22,8 @@ const dictionary: Dictionary = {
     "featured.subtitle": "Try our most loved dishes",
     "recipe.view": "View Recipe",
     "footer.rights": "All rights reserved.",
+    "search.placeholder": "Search recipes...",
+    "search.no_results": "No recipes found.",
   },
   id: {
     "nav.home": "Beranda",
@@ -34,6 +36,8 @@ const dictionary: Dictionary = {
     "featured.subtitle": "Cobalah hidangan favorit kami",
     "recipe.view": "Lihat Resep",
     "footer.rights": "Hak cipta dilindungi.",
+    "search.placeholder": "Cari resep...",
+    "search.no_results": "Tidak ada resep ditemukan.",
   },
 };
 
