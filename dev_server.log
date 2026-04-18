@@ -1,0 +1,51 @@
+
+> yanti-creation@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 532ms
+
+○ Compiling /recipes ...
+ GET /recipes 200 in 7.0s (next.js: 6.5s, application-code: 518ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectErrorBoundary router={{...}}>
+      <InnerLayoutRouter url="/recipes" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+        <SegmentViewNode type="page" pagePath="recipes/pa...">
+          <SegmentTrieNode>
+          <RecipesPage>
+            <div className="flex flex-...">
+              <RecipeSearch>
+                <div className="flex flex-...">
+                  <motion.div layout={true} className="flex flex-...">
+                    <MeasureLayout>
+                    <div className="flex flex-..." style={{}} ref={function useMotionRef.useCallback}>
+                      <motion.div layout={true} className="w-full max...">
+                        <MeasureLayout>
+                        <div className="w-full max..." style={{}} ref={function useMotionRef.useCallback}>
+                          <form onSubmit={function handleSearch} className="relative f...">
+                            <input
+                              type="text"
+                              value=""
+                              onChange={function onChange}
+                              placeholder="Search recipes..."
+                              className="w-full h-14 pl-6 pr-14 text-lg rounded-full border border-zinc-300 dark:borde..."
+-                             style={{caret-color:"transparent"}}
+                            >
+                            ...
+                  ...
+        ...
+      ...
