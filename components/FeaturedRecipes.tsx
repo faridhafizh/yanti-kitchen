@@ -1,12 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { RecipeCard } from "./RecipeCard";
+import { Recipe } from "@/lib/types";
+import Link from "next/link";
 import { Button } from "./ui/button";
-import { recipes } from "@/lib/recipes";
 
 export function FeaturedRecipes() {
-  const { language, t } = useI18n();
+  const { t } = useI18n();
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        const res = await fetch("/api/recipes");
+        const data = await res.json();
+        // Just show 4 recipes on home page
+        setRecipes(data.slice(0, 4));
+      } catch (error) {
+        console.error("Failed to fetch recipes", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRecipes();
+  }, []);
 
   return (
     <section id="recipes" className="w-full py-24 sm:py-32">
@@ -19,27 +39,21 @@ export function FeaturedRecipes() {
             {t("featured.subtitle")}
           </p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 xl:grid-cols-4">
-          {recipes.map((recipe) => (
-            <Card key={recipe.id} className="flex flex-col overflow-hidden">
-              <div className="aspect-[16/9] w-full bg-stone-100 dark:bg-stone-900 flex items-center justify-center text-5xl">
-                {recipe.emoji}
-              </div>
-              <CardHeader>
-                <CardTitle>{language === "en" ? recipe.titleEn : recipe.titleId}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-1">
-                <CardDescription className="text-base">
-                  {language === "en" ? recipe.descEn : recipe.descId}
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  {t("recipe.view")}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+
+        {loading ? (
+          <div className="mt-16 text-center">Loading recipes...</div>
+        ) : (
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 xl:grid-cols-4">
+            {recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        )}
+
+        <div className="mt-12 text-center">
+          <Link href="/recipes">
+            <Button size="lg" className="px-8">View All Recipes</Button>
+          </Link>
         </div>
       </div>
     </section>

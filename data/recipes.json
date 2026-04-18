@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "titleEn": "Nasi Goreng Spesial",
+    "titleId": "Nasi Goreng Spesial",
+    "descEn": "Classic Indonesian fried rice with sunny-side up egg and chicken satay.",
+    "descId": "Nasi goreng klasik Indonesia dengan telur mata sapi dan sate ayam.",
+    "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Cold cooked rice", "Garlic", "Shallots", "Sweet soy sauce", "Egg", "Chicken"],
+    "steps": ["Fry egg", "Sauté garlic and shallots", "Add chicken and cook", "Add rice and soy sauce", "Stir until well combined"],
+    "category": "Main Course",
+    "cookingTime": 20,
+    "difficulty": "Easy"
+  },
+  {
+    "id": 2,
+    "titleEn": "Klepon",
+    "titleId": "Klepon",
+    "descEn": "Sweet rice cake balls filled with molten palm sugar and coated in grated coconut.",
+    "descId": "Kue beras manis berisi gula aren cair dan dibalut parutan kelapa.",
+    "image": "https://images.unsplash.com/photo-1621532824368-b3917951a8f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Glutinous rice flour", "Pandan paste", "Palm sugar", "Grated coconut", "Water"],
+    "steps": ["Mix flour, water, and pandan paste to form dough", "Form small balls and fill with palm sugar", "Boil until they float", "Roll in grated coconut"],
+    "category": "Dessert",
+    "cookingTime": 30,
+    "difficulty": "Medium"
+  }
+]
