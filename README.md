@@ -1,8 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="public/logo.svg" alt="Yanti's Kitchen Logo" width="120" height="120" />
+  <h1>Yanti's Kitchen</h1>
+  <p>Discover authentic Indonesian recipes, snacks, and traditional cakes.</p>
+</div>
+
+## Description
+
+Yanti's Kitchen is a modern web application built to showcase delicious and authentic Indonesian recipes. It features a bilingual interface (English and Indonesian) and a beautiful, responsive design that looks great on both desktop and mobile devices.
+
+## Tech Stack
+
+This project was built using the following technologies:
+
+- **Framework:** [Next.js](https://nextjs.org/) (App Router, React 19)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Components:** Custom Shadcn/UI-style components using standard Tailwind classes and `@radix-ui/react-slot`
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Internationalization (i18n):** Custom React Context provider for handling EN/ID languages
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
