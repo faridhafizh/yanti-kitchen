@@ -13,7 +13,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
     }
 
     return NextResponse.json(recipe);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch recipe' }, { status: 500 });
   }
 }
@@ -38,7 +38,7 @@ export async function PUT(request: Request, props: { params: Promise<{ id: strin
     }
 
     return NextResponse.json(updatedRecipe);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to update recipe' }, { status: 500 });
   }
 }
@@ -61,7 +61,7 @@ export async function DELETE(request: Request, props: { params: Promise<{ id: st
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to delete recipe' }, { status: 500 });
   }
 }

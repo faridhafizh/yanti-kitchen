@@ -79,7 +79,7 @@ export function AdminForm({ initialData, isEdit = false }: AdminFormProps) {
         const data = await res.json();
         setError(data.error || "Something went wrong");
       }
-    } catch (err) {
+    } catch {
       setError("Failed to save recipe");
     } finally {
       setLoading(false);

@@ -8,6 +8,15 @@
 
 Yanti's Kitchen is a modern web application built to showcase delicious and authentic Indonesian recipes. It features a bilingual interface (English and Indonesian) and a beautiful, responsive design that looks great on both desktop and mobile devices.
 
+## Features
+
+- **Bilingual Support**: Toggle between English and Indonesian languages seamlessly.
+- **Admin CMS**: A custom admin dashboard (`/admin`) for managing recipes (create, edit, delete).
+- **Authentication**: Secured admin area using simple cookie-based authentication via Next.js proxy/middleware.
+- **Data Storage**: Simplified JSON file storage (`data/recipes.json`) accessed via Next.js API Routes (`/api/recipes`).
+- **Responsive Design**: Mobile-first design utilizing Tailwind CSS.
+- **Animations**: Fluid transitions and interactions powered by Framer Motion.
+
 ## Tech Stack
 
 This project was built using the following technologies:
@@ -18,6 +27,8 @@ This project was built using the following technologies:
 - **Animations:** [Framer Motion](https://www.framer.com/motion/)
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Internationalization (i18n):** Custom React Context provider for handling EN/ID languages
+- **Backend/API:** Next.js Route Handlers with local JSON file data storage (`/api/recipes`)
+- **Security:** Next.js Middleware/Proxy for secure cookie-based auth route protection
 
 ## Getting Started
 
@@ -40,6 +51,8 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Access the Admin CMS at [http://localhost:3000/admin](http://localhost:3000/admin).
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
