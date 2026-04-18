@@ -5,6 +5,7 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -13,6 +14,15 @@ export function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   useEffect(() => {
     // Ensuring the component is mounted before rendering theme-dependent UI
@@ -50,13 +60,13 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-6">
           <div className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href="#" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
+            <Link href="/" onClick={handleHomeClick} className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
               {t("nav.home")}
             </Link>
             <Link href="/recipes" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
               {t("nav.recipes")}
             </Link>
-            <Link href="#" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
+            <Link href="/about" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
               {t("nav.about")}
             </Link>
           </div>
@@ -101,7 +111,7 @@ export function Navbar() {
             <Link
               href="/"
               className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleHomeClick}
             >
               {t("nav.home")}
             </Link>
@@ -113,7 +123,7 @@ export function Navbar() {
               {t("nav.recipes")}
             </Link>
             <Link
-              href="#"
+              href="/about"
               className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
               onClick={() => setIsMobileMenuOpen(false)}
             >
