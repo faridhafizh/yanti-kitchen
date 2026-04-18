@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const recipes = await getRecipes();
     return NextResponse.json(recipes);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch recipes' }, { status: 500 });
   }
 }
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const newRecipe = await createRecipe(body);
     return NextResponse.json(newRecipe, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to create recipe' }, { status: 500 });
   }
 }
