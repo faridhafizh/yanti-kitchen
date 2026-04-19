@@ -13,6 +13,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    if (role !== 'Admin' && role !== 'Editor') {
+      return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
+    }
+
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     const users = JSON.parse(fileContents);
 
