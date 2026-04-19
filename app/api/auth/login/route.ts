@@ -13,16 +13,20 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
+    if (!email || !password) {
+      return NextResponse.json({ error: 'Missing email or password' }, { status: 400 });
+    }
+
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     const users = JSON.parse(fileContents);
 
     const user = users.find((u: { email: string; [key: string]: unknown }) => u.email === email);
 
-    if (!user) {
+    if (!user || !user.password) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password as string);
 
     if (!isMatch) {
        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
