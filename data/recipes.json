@@ -24,5 +24,57 @@
     "category": "Dessert",
     "cookingTime": 30,
     "difficulty": "Medium"
+  },
+  {
+    "id": 3,
+    "titleEn": "Beef Rendang",
+    "titleId": "Rendang Sapi",
+    "descEn": "Slow-cooked beef in coconut milk and spices until dry and tender.",
+    "descId": "Daging sapi yang dimasak perlahan dalam santan dan rempah-rempah hingga kering dan empuk.",
+    "image": "https://images.unsplash.com/photo-1625937286074-9ca519d5d9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Beef", "Coconut milk", "Lemongrass", "Galangal", "Garlic", "Shallots", "Chili", "Spices"],
+    "steps": ["Blend spices into a paste", "Sauté the spice paste", "Add beef and coconut milk", "Simmer slowly until liquid evaporates and meat is tender"],
+    "category": "Main Course",
+    "cookingTime": 180,
+    "difficulty": "Hard"
+  },
+  {
+    "id": 4,
+    "titleEn": "Chicken Satay",
+    "titleId": "Sate Ayam",
+    "descEn": "Grilled chicken skewers served with a rich peanut sauce.",
+    "descId": "Sate ayam bakar yang disajikan dengan saus kacang yang kaya rasa.",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Chicken breast", "Bamboo skewers", "Peanuts", "Sweet soy sauce", "Garlic", "Lime"],
+    "steps": ["Cut chicken into cubes and marinate", "Thread chicken onto skewers", "Grill until cooked", "Blend peanuts with garlic and sweet soy sauce to make sauce", "Serve skewers with peanut sauce"],
+    "category": "Main Course",
+    "cookingTime": 45,
+    "difficulty": "Medium"
+  },
+  {
+    "id": 5,
+    "titleEn": "Soto Ayam",
+    "titleId": "Soto Ayam",
+    "descEn": "Yellow spicy chicken soup with vermicelli, boiled egg, and cabbage.",
+    "descId": "Sup ayam bumbu kuning pedas dengan bihun, telur rebus, dan kubis.",
+    "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Chicken", "Turmeric", "Lemongrass", "Lime leaves", "Vermicelli", "Boiled egg", "Cabbage"],
+    "steps": ["Boil chicken to make broth", "Sauté blended spices (turmeric, garlic, shallots) and add to broth", "Shred the cooked chicken", "Assemble vermicelli, cabbage, and chicken in a bowl", "Pour hot broth over and top with boiled egg"],
+    "category": "Main Course",
+    "cookingTime": 60,
+    "difficulty": "Medium"
+  },
+  {
+    "id": 6,
+    "titleEn": "Gado-Gado",
+    "titleId": "Gado-Gado",
+    "descEn": "Indonesian salad of slightly boiled, blanched or steamed vegetables and hard-boiled eggs, boiled potato, fried tofu and tempeh, served with a peanut sauce dressing.",
+    "descId": "Salad sayuran rebus, telur rebus, kentang rebus, tahu dan tempe goreng, disajikan dengan saus kacang.",
+    "image": "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "ingredients": ["Cabbage", "Spinach", "Bean sprouts", "Potatoes", "Tofu", "Tempeh", "Eggs", "Peanut sauce"],
+    "steps": ["Boil or steam all vegetables", "Fry tofu and tempeh", "Boil eggs", "Prepare peanut sauce", "Mix all ingredients with peanut sauce"],
+    "category": "Salad",
+    "cookingTime": 30,
+    "difficulty": "Easy"
   }
 ]
