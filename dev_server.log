@@ -5,21 +5,16 @@
 ▲ Next.js 16.2.4 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 522ms
+✓ Ready in 520ms
 
-○ Compiling / ...
- GET / 200 in 7.3s (next.js: 6.7s, application-code: 575ms)
- GET /api/recipes 200 in 1775ms (next.js: 1750ms, application-code: 25ms)
+○ Compiling /recipes ...
+ GET /recipes 200 in 7.1s (next.js: 6.5s, application-code: 606ms)
+ GET /api/recipes 200 in 1531ms (next.js: 1494ms, application-code: 36ms)
 [browser] Image with src "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 ⨯ upstream image response failed for https://images.unsplash.com/photo-1621532824368-b3917951a8f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 404
- GET /about 200 in 825ms (next.js: 754ms, application-code: 72ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET / 200 in 78ms (next.js: 5ms, application-code: 72ms)
- GET /api/recipes 200 in 19ms (next.js: 4ms, application-code: 14ms)
-[browser] Image with src "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-⨯ upstream image response failed for https://images.unsplash.com/photo-1621532824368-b3917951a8f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 404
- GET /about 200 in 35ms (next.js: 3ms, application-code: 32ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /admin/login 200 in 1106ms (next.js: 927ms, proxy.ts: 85ms, application-code: 94ms)
- GET /admin/register 200 in 959ms (next.js: 885ms, proxy.ts: 16ms, application-code: 58ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Image with src "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1625937286074-9ca519d5d9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
