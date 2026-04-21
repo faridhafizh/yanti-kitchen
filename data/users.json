@@ -4,5 +4,23 @@
     "email": "admin@yanti.com",
     "password": "$2a$10$D2B9jVv4R/pQ08j9i4VfR.A.tBv3rFzC/YlW/xQ8Pj5T7q5d9tL/W",
     "role": "Admin"
+  },
+  {
+    "id": 1776743524744,
+    "email": "test@example.com",
+    "password": "$2b$10$NyKjAKSDRhxhjn7QYoHlfe6QF1qsgUfWD7S9DE9AagzbLtmAuXYca",
+    "role": "Admin"
+  },
+  {
+    "id": 1776744322236,
+    "email": "test2@example.com",
+    "password": "$2b$10$QSwJFcRJbz6mV2uBd9gToeXKTvi7YFYEuqBsjS8CKpq0BOpOyYXFa",
+    "role": "Admin"
+  },
+  {
+    "id": 1776745118422,
+    "email": "test3@example.com",
+    "password": "$2b$10$Ap3xC1.ifL/e153zIfHDDObl.2RoQB5rbhInZ5y5wpj9LCrO3Sa2G",
+    "role": "Admin"
   }
 ]

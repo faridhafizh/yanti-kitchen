@@ -7,7 +7,14 @@ const dataFilePath = path.join(process.cwd(), 'data/users.json');
 
 export async function POST(request: Request) {
   try {
-    const { email, password, role } = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 });
+    }
+
+    const { email, password, role } = body;
 
     if (!email || !password || !role) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -21,8 +28,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const users = JSON.parse(fileContents);
+    let users = [];
+    let fileContents = '[]';
+    try {
+      fileContents = await fs.readFile(dataFilePath, 'utf8');
+    } catch (error: unknown) {
+      if (!error || typeof error !== 'object' || !('code' in error) || (error as { code: string }).code !== 'ENOENT') {
+        throw error;
+      }
+      // If file doesn't exist, fileContents remains '[]'
+    }
+
+    users = JSON.parse(fileContents);
 
     if (users.find((u: { email: string; [key: string]: unknown }) => u.email === email)) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
@@ -38,6 +55,9 @@ export async function POST(request: Request) {
     };
 
     users.push(newUser);
+
+    // Ensure data directory exists
+    await fs.mkdir(path.dirname(dataFilePath), { recursive: true });
     await fs.writeFile(dataFilePath, JSON.stringify(users, null, 2));
 
     return NextResponse.json({ success: true, user: { email: newUser.email, role: newUser.role } });
