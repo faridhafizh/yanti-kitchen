@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Recipe } from "@/lib/types";
+import { motion } from "framer-motion";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -15,7 +16,14 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   const { language, t } = useI18n();
 
   return (
-    <Card className="flex flex-col overflow-hidden">
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      className="flex h-full"
+    >
+    <Card className="flex flex-col overflow-hidden w-full">
       <div className="relative aspect-[16/9] w-full bg-stone-100 dark:bg-stone-900">
         <Image
           src={recipe.image || "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80"}
@@ -49,5 +57,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
         </Link>
       </CardFooter>
     </Card>
+    </motion.div>
   );
 }

@@ -30,6 +30,7 @@ export function AdminForm({ initialData, isEdit = false }: AdminFormProps) {
     cookingTime: initialData?.cookingTime || 30,
     difficulty: initialData?.difficulty || "Medium",
   });
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleArrayChange = (field: "ingredients" | "steps", index: number, value: string) => {
     const newArray = [...formData[field]];
@@ -46,6 +47,36 @@ export function AdminForm({ initialData, isEdit = false }: AdminFormProps) {
       const newArray = [...formData[field]];
       newArray.splice(index, 1);
       setFormData({ ...formData, [field]: newArray });
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    setError("");
+
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setFormData({ ...formData, image: data.url });
+      } else {
+        const data = await res.json();
+        setError(data.error || "Failed to upload image");
+      }
+    } catch {
+      setError("Failed to upload image");
+    } finally {
+      setUploadingImage(false);
     }
   };
 
@@ -113,8 +144,15 @@ export function AdminForm({ initialData, isEdit = false }: AdminFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Image URL</label>
-        <input required className="w-full p-2 border rounded-md dark:bg-stone-900 dark:border-stone-700" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} />
+        <label className="text-sm font-medium">Image</label>
+        <input type="file" accept="image/*" className="w-full p-2 border rounded-md dark:bg-stone-900 dark:border-stone-700" onChange={handleImageUpload} disabled={uploadingImage} />
+        {uploadingImage && <p className="text-sm text-stone-500">Uploading...</p>}
+        {formData.image && (
+          <div className="mt-2">
+             <img src={formData.image} alt="Preview" className="h-32 w-auto object-cover rounded-md" />
+             <input type="hidden" value={formData.image} required />
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

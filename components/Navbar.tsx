@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const { language, setLanguage, t } = useI18n();
@@ -105,40 +106,47 @@ export function Navbar() {
         </div>
       </div>
 
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-stone-200/50 bg-white/95 backdrop-blur-lg dark:border-stone-800/50 dark:bg-black/95">
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            <Link
-              href="/"
-              className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
-              onClick={handleHomeClick}
-            >
-              {t("nav.home")}
-            </Link>
-            <Link
-              href="/recipes"
-              className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t("nav.recipes")}
-            </Link>
-            <Link
-              href="/about"
-              className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t("nav.about")}
-            </Link>
-            <Link
-              href="/admin/login"
-              className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Login
-            </Link>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden border-t border-stone-200/50 bg-white/95 backdrop-blur-lg dark:border-stone-800/50 dark:bg-black/95 overflow-hidden"
+          >
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                onClick={handleHomeClick}
+              >
+                {t("nav.home")}
+              </Link>
+              <Link
+                href="/recipes"
+                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("nav.recipes")}
+              </Link>
+              <Link
+                href="/about"
+                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("nav.about")}
+              </Link>
+              <Link
+                href="/admin/login"
+                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
