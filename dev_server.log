@@ -6,8 +6,24 @@
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
 ✓ Ready in 540ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
 
-○ Compiling / ...
- GET / 200 in 8.2s (next.js: 7.6s, application-code: 629ms)
- GET / 200 in 123ms (next.js: 6ms, application-code: 117ms)
- GET /api/recipes 200 in 21ms (next.js: 4ms, application-code: 17ms)
+
+ POST /api/auth/register 200 in 759ms (next.js: 568ms, application-code: 190ms)
+Registration error: SyntaxError: Expected ',' or '}' after property value in JSON at position 67 (line 1 column 68)
+    at JSON.parse (<anonymous>)
+    at async POST (app/api/auth/register/route.ts:10:39)
+   8 | export async function POST(request: Request) {
+   9 |   try {
+> 10 |     const { email, password, role } = await request.json();
+     |                                       ^
+  11 |
+  12 |     if (!email || !password || !role) {
+  13 |       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+ POST /api/auth/register 500 in 308ms (next.js: 6ms, application-code: 302ms)
+ POST /api/auth/register 400 in 36ms (next.js: 16ms, application-code: 21ms)
+ POST /api/auth/register 200 in 155ms (next.js: 8ms, application-code: 147ms)
+ POST /api/auth/register 200 in 176ms (next.js: 13ms, application-code: 163ms)
