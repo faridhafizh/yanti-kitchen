@@ -2,11 +2,9 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import { otpStore } from '../login/route';
-import fs from 'fs/promises';
-import path from 'path';
+import { getDb } from '@/lib/db';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'yantis-kitchen-super-secret-key';
-const dataFilePath = path.join(process.cwd(), 'data/users.json');
 
 export async function POST(request: Request) {
   try {
@@ -31,9 +29,8 @@ export async function POST(request: Request) {
     otpStore.delete(email);
 
     // Get user info to put in token
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const users = JSON.parse(fileContents);
-    const user = users.find((u: { email: string; id: number; role: string; [key: string]: unknown }) => u.email === email);
+    const db = await getDb();
+    const user = await db.get('SELECT * FROM users WHERE email = ?', email);
 
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });

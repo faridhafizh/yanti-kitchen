@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
-
-const dataFilePath = path.join(process.cwd(), 'data/users.json');
+import { getDb } from '@/lib/db';
 
 // Simple in-memory store for OTPs (in production use Redis or DB)
 export const otpStore = new Map<string, { otp: string, expires: number }>();
@@ -17,10 +14,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing email or password' }, { status: 400 });
     }
 
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const users = JSON.parse(fileContents);
-
-    const user = users.find((u: { email: string; [key: string]: unknown }) => u.email === email);
+    const db = await getDb();
+    const user = await db.get('SELECT * FROM users WHERE email = ?', email);
 
     if (!user || !user.password) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
