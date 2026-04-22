@@ -32,10 +32,10 @@ export function FeaturedRecipes() {
     <section id="recipes" className="w-full py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-stone-900 dark:text-stone-50 sm:text-4xl">
+          <h2 className="text-4xl font-caveat tracking-wide text-earth dark:text-cream sm:text-5xl">
             {t("featured.title")}
           </h2>
-          <p className="mt-2 text-lg leading-8 text-stone-600 dark:text-stone-400">
+          <p className="mt-4 text-lg leading-8 text-earth/80 dark:text-cream/80">
             {t("featured.subtitle")}
           </p>
         </div>

@@ -36,7 +36,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-stone-200/50 bg-white/70 backdrop-blur-lg dark:border-stone-800/50 dark:bg-black/70">
+    <nav className="sticky top-0 z-50 w-full border-b border-earth/20 bg-pale/80 backdrop-blur-md dark:border-earth/30 dark:bg-stone-950/80 texture-linen">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
           <Button
@@ -52,22 +52,22 @@ export function Navbar() {
               <Menu className="h-6 w-6" />
             )}
           </Button>
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
-            <div className="relative h-8 w-8 dark:invert">
+          <Link href="/" className="flex items-center gap-2 text-2xl font-caveat tracking-wide text-earth dark:text-cream">
+            <div className="relative h-8 w-8 dark:invert opacity-80">
               <Image src="/logo.svg" alt="Yanti's Kitchen Logo" fill className="object-contain" />
             </div>
             Yanti&apos;s Kitchen
           </Link>
         </div>
         <div className="flex items-center gap-6">
-          <div className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href="/" onClick={handleHomeClick} className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
+          <div className="hidden md:flex gap-6 text-base">
+            <Link href="/" onClick={handleHomeClick} className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream transition-colors">
               {t("nav.home")}
             </Link>
-            <Link href="/recipes" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
+            <Link href="/recipes" className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream transition-colors">
               {t("nav.recipes")}
             </Link>
-            <Link href="/about" className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50">
+            <Link href="/about" className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream transition-colors">
               {t("nav.about")}
             </Link>
           </div>
@@ -112,33 +112,33 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden border-t border-stone-200/50 bg-white/95 backdrop-blur-lg dark:border-stone-800/50 dark:bg-black/95 overflow-hidden"
+            className="md:hidden border-t border-earth/20 bg-pale/95 backdrop-blur-lg dark:border-earth/30 dark:bg-stone-950/95 overflow-hidden texture-linen"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-4 text-lg">
               <Link
                 href="/"
-                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream"
                 onClick={handleHomeClick}
               >
                 {t("nav.home")}
               </Link>
               <Link
                 href="/recipes"
-                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("nav.recipes")}
               </Link>
               <Link
                 href="/about"
-                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("nav.about")}
               </Link>
               <Link
                 href="/admin/login"
-                className="text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-50"
+                className="text-earth/80 hover:text-earth dark:text-cream/80 dark:hover:text-cream"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Login
