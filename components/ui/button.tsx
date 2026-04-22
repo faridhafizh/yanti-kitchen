@@ -9,12 +9,12 @@ const buttonSizes = {
   icon: "h-10 w-10",
 }
 const buttonColors = {
-  default: "bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-md dark:text-white border-0 transition-all",
-  destructive: "bg-red-500 text-white hover:bg-red-500/90",
-  outline: "border border-stone-200 bg-white hover:bg-stone-100 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-950 dark:hover:bg-stone-800 dark:hover:text-stone-50",
-  secondary: "bg-stone-100 text-stone-900 hover:bg-stone-100/80 dark:bg-stone-800 dark:text-stone-50 dark:hover:bg-stone-800/80",
-  ghost: "hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-50",
-  link: "text-stone-900 underline-offset-4 hover:underline dark:text-stone-50",
+  default: "bg-earth text-pale hover:bg-earth/90 shadow-sm border border-earth/20 transition-all duration-300",
+  destructive: "bg-red-800 text-pale hover:bg-red-800/90",
+  outline: "border border-earth/20 bg-pale hover:bg-cream hover:text-earth dark:border-earth/40 dark:bg-stone-900 dark:hover:bg-stone-800 dark:hover:text-cream transition-all duration-300",
+  secondary: "bg-cream text-earth hover:bg-cream/80 dark:bg-stone-800 dark:text-cream dark:hover:bg-stone-800/80 transition-all duration-300",
+  ghost: "hover:bg-cream hover:text-earth dark:hover:bg-stone-800 dark:hover:text-cream transition-all duration-300",
+  link: "text-earth underline-offset-4 hover:underline dark:text-cream transition-all duration-300",
 }
 
 export interface ButtonProps

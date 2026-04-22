@@ -9,15 +9,15 @@ export function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="w-full border-t border-stone-200/50 bg-white/70 backdrop-blur-lg py-8 dark:border-stone-800/50 dark:bg-black/70">
+    <footer className="w-full border-t border-earth/20 bg-pale/70 backdrop-blur-lg py-8 dark:border-earth/30 dark:bg-stone-950/70 texture-linen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           {pathname !== "/admin/login" && (
-            <div className="text-lg font-bold text-stone-900 dark:text-stone-50">
+            <div className="text-2xl font-caveat text-earth dark:text-cream">
               Yanti&apos;s Kitchen
             </div>
           )}
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-earth/70 dark:text-cream/70">
             © {year} {pathname !== "/admin/login" ? "Yanti's Kitchen. " : ""}{t("footer.rights")}
           </p>
         </div>
