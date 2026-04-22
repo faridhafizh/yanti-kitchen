@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import bcrypt from 'bcryptjs';
-
-const dataFilePath = path.join(process.cwd(), 'data/users.json');
+import { getDb } from '@/lib/db';
 
 export async function POST(request: Request) {
   try {
@@ -28,39 +25,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 
-    let users = [];
-    let fileContents = '[]';
-    try {
-      fileContents = await fs.readFile(dataFilePath, 'utf8');
-    } catch (error: unknown) {
-      if (!error || typeof error !== 'object' || !('code' in error) || (error as { code: string }).code !== 'ENOENT') {
-        throw error;
-      }
-      // If file doesn't exist, fileContents remains '[]'
-    }
+    const db = await getDb();
 
-    users = JSON.parse(fileContents);
-
-    if (users.find((u: { email: string; [key: string]: unknown }) => u.email === email)) {
+    const existingUser = await db.get('SELECT id FROM users WHERE email = ?', email);
+    if (existingUser) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = {
-      id: Date.now(),
-      email,
-      password: hashedPassword,
-      role
-    };
+    await db.run(
+      'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
+      [email, hashedPassword, role]
+    );
 
-    users.push(newUser);
-
-    // Ensure data directory exists
-    await fs.mkdir(path.dirname(dataFilePath), { recursive: true });
-    await fs.writeFile(dataFilePath, JSON.stringify(users, null, 2));
-
-    return NextResponse.json({ success: true, user: { email: newUser.email, role: newUser.role } });
+    return NextResponse.json({ success: true, user: { email, role } });
   } catch (error) {
     console.error('Registration error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
