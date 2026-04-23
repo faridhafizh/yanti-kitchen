@@ -5,6 +5,8 @@ import { I18nProvider } from "@/lib/i18n";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { MuiProvider } from "@/components/MuiProvider";
+import { Box } from "@mui/material";
 
 const caveatFont = Caveat({
   variable: "--font-caveat",
@@ -34,13 +36,30 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${caveatFont.variable} ${loraFont.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col bg-pale dark:bg-stone-950 font-lora text-stone-900 dark:text-stone-100 texture-linen">
+      <body className="min-h-full flex flex-col bg-[#f4f4f4] dark:bg-[#1a1a1a] font-lora text-stone-900 dark:text-stone-100">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <I18nProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </I18nProvider>
+          <MuiProvider>
+            <I18nProvider>
+              <Navbar />
+              <Box
+                component="main"
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  bgcolor: "background.default",
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  m: { xs: 2, md: 4 },
+                  mt: { xs: 12, md: 16 }, // Offset for the fixed navbar
+                  boxShadow: 3,
+                }}
+              >
+                {children}
+              </Box>
+              <Footer />
+            </I18nProvider>
+          </MuiProvider>
         </ThemeProvider>
       </body>
     </html>

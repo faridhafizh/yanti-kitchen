@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.0.0",
     "@radix-ui/react-slot": "^1.2.4",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.38.0",
@@ -32,6 +35,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "playwright": "^1.59.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
