@@ -94,7 +94,7 @@ export function Navbar() {
                 <Link href="/admin/login">Login</Link>
               </Button>
               <Button
-                className="rounded-full bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-stone-200 font-sans font-medium text-[15px] px-6 h-10"
+                className="rounded-full bg-stone-900 dark:bg-stone-800 text-white dark:text-stone-100 hover:bg-stone-800 dark:hover:bg-stone-200 font-sans font-medium text-[15px] px-6 h-10"
                 asChild
               >
                 <Link href="/recipes">Recipes</Link>
@@ -154,13 +154,13 @@ export function Navbar() {
                 <div className="pt-4 flex flex-col gap-3">
                   <Button
                     variant="outline"
-                    className="w-full rounded-full bg-white dark:bg-[#1a1a1b] border-stone-200 dark:border-stone-700 h-12 text-[15px]"
+                    className="w-full rounded-full bg-white dark:bg-[#1a1a1b] text-stone-900 dark:text-stone-100 border-stone-200 dark:border-stone-700 h-12 text-[15px]"
                     asChild
                   >
                     <Link href="/admin/login" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
                   </Button>
                   <Button
-                    className="w-full rounded-full bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 h-12 text-[15px]"
+                    className="w-full rounded-full bg-stone-900 dark:bg-stone-800 text-white dark:text-stone-100 h-12 text-[15px]"
                     asChild
                   >
                     <Link href="/recipes" onClick={() => setIsMobileMenuOpen(false)}>Recipes</Link>

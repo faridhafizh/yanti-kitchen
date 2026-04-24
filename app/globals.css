@@ -13,9 +13,9 @@
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --color-cream: #2a2822;
-  --color-earth: #6b5a45;
-  --color-pale: #1a1918;
+  --color-cream: #F5F5DC;
+  --color-earth: #A68A64;
+  --color-pale: #FAF9F6;
 }
 
 @theme inline {
