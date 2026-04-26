@@ -63,17 +63,23 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="font-medium font-sans flex items-center gap-1 text-[15px] hover:bg-transparent px-0 text-stone-900 dark:text-stone-100"
-                onClick={() => setLanguage(language === "en" ? "id" : "en")}
+            <div className="flex items-center gap-2 text-[15px] font-medium font-sans text-stone-900 dark:text-stone-100">
+              <button
+                onClick={() => setLanguage("en")}
+                className={`hover:opacity-70 transition-opacity ${language === "en" ? "font-bold" : "opacity-70"}`}
               >
-                {language.toUpperCase()}
-                <ChevronDown className="h-4 w-4" />
-              </Button>
+                EN
+              </button>
+              <span className="opacity-50">|</span>
+              <button
+                onClick={() => setLanguage("id")}
+                className={`hover:opacity-70 transition-opacity ${language === "id" ? "font-bold" : "opacity-70"}`}
+              >
+                ID
+              </button>
+            </div>
 
+            <div className="hidden md:flex items-center gap-4">
               {mounted && (
                 <Button
                   variant="ghost"
