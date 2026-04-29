@@ -3,15 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { BookOpen, PlusCircle, Users, Edit, Trash2, LogOut } from "lucide-react";
+import { BookOpen, PlusCircle, Users, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Recipe } from "@/lib/types";
-import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     fetchStats();
@@ -20,54 +18,46 @@ export default function AdminDashboard() {
   async function fetchStats() {
     try {
       const res = await fetch("/api/recipes");
-        const data = await res.json();
-        setRecipes(data);
-      } catch (error) {
-        console.error("Failed to fetch recipes", error);
-      } finally {
-        setLoading(false);
-      }
+      const data = await res.json();
+      setRecipes(data);
+    } catch (error) {
+      console.error("Failed to fetch recipes", error);
+    } finally {
+      setLoading(false);
     }
-  if (loading) {
-    return <div>Loading dashboard...</div>;
   }
 
   const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to delete this recipe?")) {
-      try {
-        await fetch(`/api/recipes/${id}`, { method: "DELETE" });
-        fetchStats();
-      } catch (error) {
-        console.error("Failed to delete recipe", error);
+    if (!confirm("Are you sure you want to delete this recipe?")) return;
+    try {
+      const res = await fetch(`/api/recipes/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setRecipes(prev => prev.filter(r => r.id !== id));
+      } else {
+        alert("Failed to delete recipe.");
       }
+    } catch (error) {
+      console.error("Failed to delete recipe", error);
     }
   };
 
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/admin/login");
-    router.refresh();
-  };
+  if (loading) {
+    return <div className="p-8 text-stone-500">Loading dashboard...</div>;
+  }
 
   return (
-    <div className="space-y-8 p-8 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-stone-500 dark:text-stone-400 mt-1">Manage your recipes and users.</p>
+          <p className="text-stone-500 dark:text-stone-400 mt-1">Manage your recipes.</p>
         </div>
-        <div className="flex gap-2">
-          <Link href="/admin/recipes/new">
-            <Button>
-              <PlusCircle className="mr-2 h-4 w-4" />
-              New Recipe
-            </Button>
-          </Link>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
+        <Link href="/admin/recipes/new">
+          <Button>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            New Recipe
           </Button>
-        </div>
+        </Link>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -128,9 +118,12 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-                          ${recipe.difficulty === 'Easy' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                            recipe.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                            'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'}`}>
+                          ${recipe.difficulty === 'Easy'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                            : recipe.difficulty === 'Medium'
+                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                            : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                          }`}>
                           {recipe.difficulty}
                         </span>
                       </td>
@@ -142,7 +135,12 @@ export default function AdminDashboard() {
                               <span className="sr-only">Edit</span>
                             </Button>
                           </Link>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950" onClick={() => handleDelete(recipe.id)}>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+                            onClick={() => handleDelete(recipe.id)}
+                          >
                             <Trash2 className="h-4 w-4" />
                             <span className="sr-only">Delete</span>
                           </Button>
@@ -153,7 +151,7 @@ export default function AdminDashboard() {
                   {recipes.length === 0 && (
                     <tr>
                       <td colSpan={4} className="px-6 py-8 text-center text-stone-500 dark:text-stone-400">
-                        No recipes found. Click &quot;New Recipe&quot; to create one.
+                        No recipes found. Click &quot;New Recipe&quot; to add one.
                       </td>
                     </tr>
                   )}

@@ -3,6 +3,7 @@
 import { useI18n } from "@/lib/i18n";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Hero() {
   const { t } = useI18n();
@@ -28,10 +29,13 @@ export function Hero() {
           </div>
           <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
             <div className="relative w-full aspect-[4/3] overflow-hidden rounded-3xl shadow-lg border border-earth/20 texture-ceramic">
-              {/* Note: In a real app, replace this with an actual image of food. Using a placeholder for now. */}
-              <div className="absolute inset-0 bg-cream/50 dark:bg-stone-800/50 flex items-center justify-center mix-blend-multiply dark:mix-blend-screen">
-                 <span className="text-6xl opacity-80">🍲</span>
-              </div>
+              <Image
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                alt="Indonesian cuisine spread"
+                fill
+                className="object-cover opacity-90"
+                priority
+              />
             </div>
           </div>
         </div>

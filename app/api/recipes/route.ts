@@ -1,6 +1,18 @@
 import { NextResponse } from 'next/server';
 import { getRecipes, createRecipe } from '@/lib/api';
 import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'yantis-kitchen-super-secret-key';
+
+function verifyAuth(token: string): boolean {
+  try {
+    jwt.verify(token, JWT_SECRET);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export async function GET() {
   try {
@@ -13,9 +25,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
-  const authToken = cookieStore.get('auth-token');
+  const authToken = cookieStore.get('auth-token')?.value;
 
-  if (!authToken) {
+  if (!authToken || !verifyAuth(authToken)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
