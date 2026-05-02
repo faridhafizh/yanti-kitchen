@@ -14,9 +14,14 @@ function verifyAuth(token: string): boolean {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const recipes = await getRecipes();
+    const { searchParams } = new URL(request.url);
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? parseInt(limitParam, 10) : undefined;
+
+    // Pass the parsed limit to getRecipes, enabling database-level pagination/limiting
+    const recipes = await getRecipes(limit);
     return NextResponse.json(recipes);
   } catch {
     return NextResponse.json({ error: 'Failed to fetch recipes' }, { status: 500 });

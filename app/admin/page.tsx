@@ -12,20 +12,19 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch("/api/recipes");
+        const data = await res.json();
+        setRecipes(data);
+      } catch (error) {
+        console.error("Failed to fetch recipes", error);
+      } finally {
+        setLoading(false);
+      }
+    }
     fetchStats();
   }, []);
-
-  async function fetchStats() {
-    try {
-      const res = await fetch("/api/recipes");
-      const data = await res.json();
-      setRecipes(data);
-    } catch (error) {
-      console.error("Failed to fetch recipes", error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this recipe?")) return;

@@ -149,6 +149,7 @@ export function AdminForm({ initialData, isEdit = false }: AdminFormProps) {
         {uploadingImage && <p className="text-sm text-stone-500">Uploading...</p>}
         {formData.image && (
           <div className="mt-2">
+             {/* eslint-disable-next-line @next/next/no-img-element */}
              <img src={formData.image} alt="Preview" className="h-32 w-auto object-cover rounded-md" />
              <input type="hidden" value={formData.image} required />
           </div>
