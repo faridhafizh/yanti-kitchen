@@ -15,10 +15,12 @@ export function FeaturedRecipes() {
   useEffect(() => {
     async function fetchRecipes() {
       try {
-        const res = await fetch("/api/recipes");
+        // Optimisation: Fetch only the 4 recipes needed for the featured section
+        // Prevents loading all recipes into memory and sending them over the network
+        const res = await fetch("/api/recipes?limit=4");
         const data = await res.json();
         // Just show 4 recipes on home page
-        setRecipes(data.slice(0, 4));
+        setRecipes(data);
       } catch (error) {
         console.error("Failed to fetch recipes", error);
       } finally {

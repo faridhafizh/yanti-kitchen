@@ -38,10 +38,18 @@ function rowToRecipe(row: Record<string, unknown>): Recipe {
   };
 }
 
-export async function getRecipes(): Promise<Recipe[]> {
+export async function getRecipes(limit?: number): Promise<Recipe[]> {
   try {
     const db = await ensureRecipesTable();
-    const rows = await db.all('SELECT * FROM recipes ORDER BY id ASC');
+    let query = 'SELECT * FROM recipes ORDER BY id ASC';
+    const params: unknown[] = [];
+
+    if (limit !== undefined && limit > 0) {
+      query += ' LIMIT ?';
+      params.push(limit);
+    }
+
+    const rows = await db.all(query, ...params);
     return rows.map(rowToRecipe);
   } catch (error) {
     console.error('Error reading recipes from DB', error);
