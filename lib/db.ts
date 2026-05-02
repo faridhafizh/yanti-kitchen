@@ -20,6 +20,9 @@ export async function getDb() {
         driver: sqlite3.Database
       });
 
+      // Use Write-Ahead Logging to improve concurrency and prevent SQLITE_BUSY / Read-Only errors during concurrent requests.
+      await db.exec('PRAGMA journal_mode = WAL;');
+
       // Initialize the users table
       await db.exec(`
         CREATE TABLE IF NOT EXISTS users (
