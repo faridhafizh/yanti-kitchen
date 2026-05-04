@@ -1,18 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getRecipeById, updateRecipe, deleteRecipe } from '@/lib/api';
-import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'yantis-kitchen-super-secret-key';
-
-function verifyAuth(token: string): boolean {
-  try {
-    jwt.verify(token, JWT_SECRET);
-    return true;
-  } catch {
-    return false;
-  }
-}
+import { getAuthTokenFromCookies, verifyAuthToken } from '@/lib/auth';
 
 export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -32,10 +20,8 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
 }
 
 export async function PUT(request: Request, props: { params: Promise<{ id: string }> }) {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get('auth-token')?.value;
-
-  if (!authToken || !verifyAuth(authToken)) {
+  const authToken = await getAuthTokenFromCookies();
+  if (!authToken || !verifyAuthToken(authToken)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -57,10 +43,8 @@ export async function PUT(request: Request, props: { params: Promise<{ id: strin
 }
 
 export async function DELETE(request: Request, props: { params: Promise<{ id: string }> }) {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get('auth-token')?.value;
-
-  if (!authToken || !verifyAuth(authToken)) {
+  const authToken = await getAuthTokenFromCookies();
+  if (!authToken || !verifyAuthToken(authToken)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

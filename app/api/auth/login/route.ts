@@ -2,9 +2,23 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { getDb } from '@/lib/db';
+import { saveOtp } from '@/lib/auth';
 
-// Simple in-memory store for OTPs (in production use Redis or DB)
-export const otpStore = new Map<string, { otp: string, expires: number }>();
+function createTransporter() {
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    return nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+  }
+
+  return null;
+}
 
 export async function POST(request: Request) {
   try {
@@ -15,51 +29,49 @@ export async function POST(request: Request) {
     }
 
     const db = await getDb();
-    const user = await db.get('SELECT * FROM users WHERE email = ?', email);
+    const user = await db.get('SELECT * FROM users WHERE email = ? AND is_active = 1', email);
 
     if (!user || !user.password) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
     const isMatch = await bcrypt.compare(password, user.password as string);
-
     if (!isMatch) {
-       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    await saveOtp(email, otp);
 
-    // Store OTP, valid for 5 minutes
-    otpStore.set(email, {
-      otp,
-      expires: Date.now() + 5 * 60 * 1000
-    });
+    let previewUrl: string | null = null;
+    let transporter = createTransporter();
 
-    // Send email with nodemailer via ethereal
-    const testAccount = await nodemailer.createTestAccount();
-    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
+    if (!transporter) {
+      const testAccount = await nodemailer.createTestAccount();
+      transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass,
+        },
+      });
+    }
 
     const info = await transporter.sendMail({
       from: '"Yantis Kitchen" <no-reply@yanti.com>',
       to: email,
-      subject: "Your OTP Code",
+      subject: 'Your OTP Code',
       text: `Your OTP code is ${otp}. It expires in 5 minutes.`,
       html: `<b>Your OTP code is ${otp}.</b> It expires in 5 minutes.`,
     });
 
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    if (process.env.NODE_ENV !== 'production') {
+      previewUrl = nodemailer.getTestMessageUrl(info) || null;
+    }
 
-    return NextResponse.json({ success: true, message: 'OTP sent to email', previewUrl: nodemailer.getTestMessageUrl(info) });
+    return NextResponse.json({ success: true, message: 'OTP sent to email', previewUrl });
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

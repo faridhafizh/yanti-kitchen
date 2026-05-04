@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { getAuthTokenFromCookies, verifyAuthToken } from '@/lib/auth';
 import fs from 'fs/promises';
 import path from 'path';
 
 export async function POST(request: Request) {
   try {
-    const cookieStore = await cookies();
-    const authToken = cookieStore.get('auth-token');
-
-    if (!authToken) {
+    const authToken = await getAuthTokenFromCookies();
+    if (!authToken || !verifyAuthToken(authToken)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -22,14 +20,12 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create unique filename
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.name) || '.jpg'; // Fallback extension
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.name) || '.jpg';
     const filename = `upload-${uniqueSuffix}${ext}`;
 
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 
-    // Ensure the uploads directory exists
     try {
       await fs.access(uploadDir);
     } catch {

@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { verifyAuthToken } from '@/lib/auth';
 
 export function proxy(request: NextRequest) {
-  const authToken = request.cookies.get('auth-token');
+  const authToken = request.cookies.get('auth-token')?.value;
   const isAuthPage = request.nextUrl.pathname.startsWith('/admin/login') || request.nextUrl.pathname.startsWith('/admin/register');
   const isAdminPage = request.nextUrl.pathname.startsWith('/admin');
 
-  if (isAdminPage && !isAuthPage && !authToken) {
+  if (isAdminPage && !isAuthPage && (!authToken || !verifyAuthToken(authToken))) {
     return NextResponse.redirect(new URL('/admin/login', request.url));
   }
 
-  if (isAuthPage && authToken) {
+  if (isAuthPage && authToken && verifyAuthToken(authToken)) {
     return NextResponse.redirect(new URL('/admin', request.url));
   }
 

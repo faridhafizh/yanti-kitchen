@@ -1,18 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getRecipes, createRecipe } from '@/lib/api';
-import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'yantis-kitchen-super-secret-key';
-
-function verifyAuth(token: string): boolean {
-  try {
-    jwt.verify(token, JWT_SECRET);
-    return true;
-  } catch {
-    return false;
-  }
-}
+import { getAuthTokenFromCookies, verifyAuthToken } from '@/lib/auth';
 
 export async function GET(request: Request) {
   try {
@@ -20,7 +8,6 @@ export async function GET(request: Request) {
     const limitParam = searchParams.get('limit');
     const limit = limitParam ? parseInt(limitParam, 10) : undefined;
 
-    // Pass the parsed limit to getRecipes, enabling database-level pagination/limiting
     const recipes = await getRecipes(limit);
     return NextResponse.json(recipes);
   } catch {
@@ -29,10 +16,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get('auth-token')?.value;
+  const authToken = await getAuthTokenFromCookies();
 
-  if (!authToken || !verifyAuth(authToken)) {
+  if (!authToken || !verifyAuthToken(authToken)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
