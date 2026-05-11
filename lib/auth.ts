@@ -2,7 +2,10 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { getDb } from './db';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'yantis-kitchen-super-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is not set');
+}
 const OTP_TTL_MS = 5 * 60 * 1000;
 
 export type AuthPayload = {
@@ -14,12 +17,12 @@ export type AuthPayload = {
 };
 
 export function signAuthToken(payload: { id: number; email: string; role: string }) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign(payload, JWT_SECRET as string, { expiresIn: '7d' });
 }
 
 export function verifyAuthToken(token: string): AuthPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as AuthPayload;
+    return jwt.verify(token, JWT_SECRET as string) as AuthPayload;
   } catch {
     return null;
   }
