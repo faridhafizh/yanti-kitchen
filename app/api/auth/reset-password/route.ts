@@ -24,9 +24,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    await markOtpUsed(otpRecord.id);
     const hashed = await bcrypt.hash(newPassword, 10);
     await db.run('UPDATE users SET password = ?, updated_at = ? WHERE id = ?', [hashed, Date.now(), user.id]);
+    await markOtpUsed(otpRecord.id);
 
     return NextResponse.json({ success: true, message: 'Password reset successfully' });
   } catch (error) {

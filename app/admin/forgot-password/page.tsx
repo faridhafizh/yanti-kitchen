@@ -14,6 +14,7 @@ export default function ForgotPasswordPage() {
   const [devOtpUrl, setDevOtpUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const [resending, setResending] = useState(false);
 
   const handleRequest = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +77,7 @@ export default function ForgotPasswordPage() {
           {success ? (
             <div className="space-y-4">
               <div className="bg-green-50 text-green-700 p-3 rounded-md text-sm">{success}</div>
-              <Link href="/admin/login" className="block text-center text-sm font-medium hover:underline">Back to login</Link>
+              <Link href="/admin/login" className="block text-center text-sm font-medium hover:underline">Go to login</Link>
             </div>
           ) : step === "email" ? (
             <form onSubmit={handleRequest} className="space-y-4">
@@ -114,6 +115,20 @@ export default function ForgotPasswordPage() {
                   required />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>{loading ? "Resetting..." : "Reset Password"}</Button>
+              <div className="text-center mt-2">
+                <button type="button" disabled={resending} onClick={async () => {
+                  setResending(true); setError("");
+                  try {
+                    const res = await fetch("/api/auth/forgot-password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
+                    const data = await res.json();
+                    if (res.ok) { if (data.previewUrl) setDevOtpUrl(data.previewUrl); setError(""); }
+                    else setError(data.error || "Resend failed");
+                  } catch { setError("An unexpected error occurred"); }
+                  finally { setResending(false); }
+                }} className="text-sm font-medium hover:underline text-stone-900 dark:text-stone-100 disabled:opacity-50">
+                  {resending ? "Resending..." : "Resend OTP"}
+                </button>
+              </div>
             </form>
           )}
         </CardContent>
