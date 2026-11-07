@@ -117,11 +117,18 @@ export default function LoginPage() {
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Sending OTP..." : "Sign in"}
               </Button>
-              <div className="text-center mt-4">
-                <span className="text-sm text-stone-500">Don&apos;t have an account? </span>
-                <Link href="/admin/register" className="text-sm font-medium hover:underline text-stone-900 dark:text-stone-100">
-                  Register
-                </Link>
+              <div className="text-center mt-4 space-y-2">
+                <div>
+                  <span className="text-sm text-stone-500">Don&apos;t have an account? </span>
+                  <Link href="/admin/register" className="text-sm font-medium hover:underline text-stone-900 dark:text-stone-100">
+                    Register
+                  </Link>
+                </div>
+                <div>
+                  <Link href="/admin/forgot-password" className="text-sm font-medium hover:underline text-stone-900 dark:text-stone-100">
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
             </form>
           ) : (
