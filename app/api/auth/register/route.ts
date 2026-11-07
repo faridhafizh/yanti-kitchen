@@ -12,15 +12,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 });
     }
 
-    const { email, password, role } = body;
+    const { email, password } = body;
+    const role = 'Editor'; // Prevent privilege escalation: public registration cannot create Admins
 
     if (!email || !password || !role) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    if (role !== 'Admin' && role !== 'Editor') {
-      return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
-    }
+    // role is fixed to 'Editor' above to prevent privilege escalation
 
     if (!isValidEmail(email)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
